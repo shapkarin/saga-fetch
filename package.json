@@ -1,6 +1,6 @@
 {
   "name": "saga-fetch",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "redux-saga fetch worker",
   "main": "build/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "fetch",
     "saga",
     "redux",
-    "worker"
+    "worker",
+    "axios"
   ],
   "author": "Yury Shapkarin <yury@shapkarin.me> (https://shapkarin.me)",
   "license": "MIT",

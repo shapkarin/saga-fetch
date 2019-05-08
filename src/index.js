@@ -1,12 +1,20 @@
 import { put, call } from 'redux-saga/effects';
 
 function* fetch({
-  action, method, start, succes, error
+  action, method, start, success, error
 }) {
   try {
     yield put(start());
-    const { data } = yield call(method, action);
-    yield put(succes(data));
+    const response = yield call(method, action);
+    let data;
+    // if not it's window.fetch()
+    if(yield response.data === undefined){
+      data = yield response.json();
+    // if it's axios
+    } else {
+      data = response.data;
+    }
+    yield put(success(data));
   } catch (err) {
     yield put(error(err));
   }
