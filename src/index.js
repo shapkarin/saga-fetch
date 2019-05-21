@@ -12,7 +12,7 @@ function* fetch({
       data = yield response.json();
     // if it's axios
     } else {
-      data = response.data;
+      data = yield response.data;
     }
     yield put(success(data));
   } catch (err) {
