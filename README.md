@@ -1,6 +1,6 @@
-Redux-saga fetch worker.
+## Redux-saga fetch worker.
 
-Install 
+### Install 
 
 ```
 npm install saga-fetch
@@ -13,7 +13,7 @@ Options:
 - `success:` if request was successful dispatch this action with responsed data
 - `error:` dispatch an error with an actual error
 
-Example:
+### Example:
 ```js
 import { fork, takeEvery } from 'redux-saga/effects';
 import fetch from 'saga-fetch';
@@ -23,7 +23,6 @@ import {
     loadSomeInfoSuccess,
     loadSomeInfoError
 } from './actions';
-// import { fetchSomeInfo } from 'utils/myAwesomeAPI';
 
 const fetchSomeInfo = action => {
   console.log(action);
@@ -43,5 +42,46 @@ function* getSomeInfoWorker(action){
 
 function* mySaga () {
     yield takeEvery('SOME_ACTION_TYPE', getSomeInfoWorker);
+}
+```
+
+### It's also cool to use with [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines):
+
+```js
+// routines.js
+import { createRoutine } from 'redux-saga-routines';
+
+export default createRoutine('user');
+```
+
+```js
+// api.js
+import axios from 'axios';
+
+export const fetchUser = action => {
+  const { payload: { id } } = action;
+  return axios.get(`/users/${id}`)
+}
+```
+
+```js
+import { fork, takeEvery } from 'redux-saga/effects';
+import fetch from 'saga-fetch';
+
+import { fetchUser } from './api';
+import user from './routines';
+
+function* getUser(action){
+  yield fork(fetch, {
+      action,
+      method: fetchUser,
+      start: user.request,
+      success: user.success,
+      error: user.failure
+  });
+}
+
+function* mySaga () {
+    yield takeEvery(user.TRIGGER, getUser);
 }
 ```
