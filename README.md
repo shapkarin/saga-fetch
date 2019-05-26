@@ -58,10 +58,7 @@ export default createRoutine('user');
 // api.js
 import axios from 'axios';
 
-export const fetchUser = action => {
-  const { payload: { id } } = action;
-  return axios.get(`/users/${id}`)
-}
+export const fetchUser = ({ payload: { id } }) => axios.get(`/users/${id}`)
 ```
 
 ```js
