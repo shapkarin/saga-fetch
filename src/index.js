@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects';
+import { put, call, cancelled } from 'redux-saga/effects';
 
 function* fetch({
   action, method, start, success, error
@@ -17,6 +17,10 @@ function* fetch({
     yield put(success(data));
   } catch (err) {
     yield put(error(err));
+  } finally {
+    if (yield cancelled()){
+      yield put({ type: `${action.type}/CANCELED`});
+    }
   }
 }
 
