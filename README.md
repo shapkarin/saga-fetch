@@ -78,7 +78,8 @@ function* getUser(action){
       method: fetchUser,
       start: user.request,
       success: user.success,
-      error: user.failure
+      error: user.failure,
+      fulfill: user.fulfill
   });
 }
 

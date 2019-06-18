@@ -18,11 +18,12 @@ function* fetch({
   } catch (err) {
     yield put(error(err));
   } finally {
+    const { type } = action;
     if (yield cancelled()){
-      yield put({ type: `${action.type}/CANCELED`});
+      yield put({ type: `${type}/CANCELED`});
     } else {
       const _fulfill = fulfill || function(){
-        return { type: `${action.type}/FULFILL` };
+        return { type: `${type}/FULFILL` };
       };
       yield put(_fulfill())
     }
