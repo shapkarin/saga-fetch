@@ -1,7 +1,7 @@
 import { put, call, cancelled } from 'redux-saga/effects';
 
 function* fetch({
-  action, method, start, success, error
+  action, method, start, success, error, fulfill
 }) {
   try {
     yield put(start());
@@ -20,6 +20,11 @@ function* fetch({
   } finally {
     if (yield cancelled()){
       yield put({ type: `${action.type}/CANCELED`});
+    } else {
+      const _fulfill = fulfill || function(){
+        return { type: `${action.type}/FULFILL` };
+      };
+      yield put(_fulfill())
     }
   }
 }
