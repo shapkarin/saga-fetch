@@ -12,7 +12,7 @@ Options:
 - `start:` action to be dispatched just before fetching
 - `success:` if request was successful dispatch this action with responsed data
 - `error:` dispatch an error with an actual error
-- `fulfill`: action to be dispatched at the end of worker after `success` or `error`. By default it has type `${action.type}/FULFILL`. Useful to change `loading` state to `false`.
+- `fulfill`: action to be dispatched at the end of worker after `success` or `error`. By default it has type `${action.type}/FULFILL`. Useful to change `loading` state to `false`. It's also has payload the same with `action`.
 
 ### Example:
 ```js
