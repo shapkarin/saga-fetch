@@ -1,6 +1,6 @@
 {
   "name": "saga-fetch",
-  "version": "1.2.11",
+  "version": "1.3.0",
   "description": "redux-saga fetch worker",
   "main": "build/index.js",
   "scripts": {
