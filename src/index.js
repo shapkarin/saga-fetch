@@ -23,9 +23,9 @@ function* fetch({
       yield put({ type: `${type}/CANCELED`});
     } else {
       const _fulfill = fulfill || function(){
-        return { type: `${type}/FULFILL` };
+        return { type: `${type}/FULFILL`, payload: action.payload };
       };
-      yield put(_fulfill())
+      yield put(_fulfill(action.payload))
     }
   }
 }
