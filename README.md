@@ -104,7 +104,7 @@ const initialState = {
 };
 
 export default handleActions({
-  [user.REQUEST]: state => ({
+  [user.TRIGGER]: state => ({
     ...state,
     loading: true
   }),
