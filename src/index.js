@@ -1,7 +1,13 @@
 import { put, call, cancelled } from 'redux-saga/effects';
 
 function* fetch({
-  action, method, start, success, error, fulfill
+  action,
+  method,
+  start,
+  success,
+  error,
+  fulfill,
+  cancel
 }) {
   try {
     yield put(start());
@@ -18,14 +24,17 @@ function* fetch({
   } catch (err) {
     yield put(error(err));
   } finally {
-    const { type } = action;
+    const { type, payload } = action;
     if (yield cancelled()){
-      yield put({ type: `${type}/CANCELED`});
-    } else {
-      const _fulfill = fulfill || function(){
-        return { type: `${type}/FULFILL`, payload: action.payload };
+      const _cancel = cancel || function(payload){
+        return { type: `${type}/CANCELED`, payload };
       };
-      yield put(_fulfill(action.payload))
+      yield put(_cancel(payload));
+    } else {
+      const _fulfill = fulfill || function(payload){
+        return { type: `${type}/FULFILL`, payload };
+      };
+      yield put(_fulfill(payload))
     }
   }
 }
