@@ -12,14 +12,7 @@ function* fetch({
   try {
     yield put(start());
     const response = yield call(method, action);
-    let data;
-    // if not it's window.fetch()
-    if(yield response.data === undefined){
-      data = yield response.json();
-    // if it's axios
-    } else {
-      data = yield response.data;
-    }
+    const data = yield response.data || response.json();
     yield put(success(data));
   } catch (err) {
     yield put(error(err));
