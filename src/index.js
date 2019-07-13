@@ -23,11 +23,8 @@ function* fetch({
         return { type: `${type}/CANCELED`, payload };
       };
       yield put(_cancel(payload));
-    } else {
-      const _fulfill = fulfill || function(payload){
-        return { type: `${type}/FULFILL`, payload };
-      };
-      yield put(_fulfill(payload))
+    } else if(yield fulfill !== undefined){
+      yield put(fulfill(payload))
     }
   }
 }

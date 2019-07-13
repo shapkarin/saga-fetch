@@ -19,7 +19,7 @@ npm install saga-fetch
 - `error:` dispatch an error with an actual error
 
 #### optional:
-- `fulfill:` action to be dispatched at the end of worker after `success` or `error`. By default it has type `${action.type}/FULFILL`. Useful to change `loading` state to `false`. When it's despatched with `saga-fetch` it has the same payload as `action` option.
+- `fulfill:` action to be dispatched at the end of worker after `success` or `error`. Useful to change `loading` state to `false`. When it's despatched with `saga-fetch` it has the same payload as `action` option.
 - `cancel:` this action will be dispatched if worker is cancelled. By default it has type `${action.type}/CANCELED` and payload same with `action` option. Note: It's just an action. To cancel ajax with saga's cancellation your's fetch `method` shuld be [like that](https://gist.github.com/shapkarin/5dfb7dd134fca1e51fdcef1fd24a8adf)
 
 ### Example:
