@@ -33,13 +33,14 @@ function* fetch({
   } catch (err) {
     yield put(error(err));
   } finally {
+    if(yield fulfill !== undefined){
+      yield put(fulfill(payload));
+    }
     if (yield cancelled()){
       const _cancel = cancel || function(payload){
         return { type: `${type}/CANCELED`, payload };
       };
       yield put(_cancel(payload));
-    } else if(yield fulfill !== undefined){
-      yield put(fulfill(payload));
     }
   }
 }
