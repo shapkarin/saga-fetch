@@ -1,3 +1,7 @@
+### Version 1.3.7
+- Dispatch `fulfill` even if worker was cancelled.
+- Update docs
+
 ### Version 1.3.6
 Update dependencies
 
