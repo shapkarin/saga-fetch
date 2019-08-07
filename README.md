@@ -33,10 +33,10 @@ import { fork, takeEvery } from 'redux-saga/effects';
 import fetchWorker from 'saga-fetch';
 
 import {
-    SearchPagesStart,
-    SearchPagesSuccess,
-    SearchPagesError,
-    SearchPagesFulfill,
+    searchPagesStart,
+    searchPagesSuccess,
+    searchPagesError,
+    searchPagesFulfill,
 } from './actions';
 
 const searchPages = ({ payload: { title } }) => fetch(`/search/pages?title=${title}`)
@@ -45,19 +45,19 @@ const searchPages = ({ payload: { title } }) => fetch(`/search/pages?title=${tit
    const searchPages = ({ payload: { title } }) => axios.get(`/search/pages?title=${title}`)
 */
 
-function* SearchPagesWorker(action){
+function* searchPagesWorker(action){
   yield fork(fetchWorker, {
       action,
       method: searchPages
-      start: SearchPagesStart,
-      success: SearchPagesSuccess,
-      error: SearchPagesError,
-      fulfill: SearchPagesFulfill
+      start: searchPagesStart,
+      success: searchPagesSuccess,
+      error: searchPagesError,
+      fulfill: searchPagesFulfill
   });
 }
 
-function* SearchPagesWatcher () {
-    yield takeEvery('SEARCH_PAGE', SearchPagesWorker);
+function* searchPagesWatcher () {
+    yield takeEvery('SEARCH_PAGE', searchPagesWorker);
 }
 ```
 
@@ -86,7 +86,7 @@ import fetch from 'saga-fetch';
 import { searchPages } from './api';
 import search from './routines';
 
-function* SearchPagesWorker(action){
+function* searchPagesWorker(action){
   yield delay(142);
   yield fork(fetch, {
       action,
@@ -98,8 +98,8 @@ function* SearchPagesWorker(action){
   });
 }
 
-export default function* SearchPagesWatcher() {
-  yield takeLatest(search.TRIGGER, SearchPagesWorker);
+export default function* searchPagesWatcher() {
+  yield takeLatest(search.TRIGGER, searchPagesWorker);
 }
 ```
 
@@ -141,5 +141,4 @@ export default handleActions({
   })
 },
 initialState);
-
 ```
