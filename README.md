@@ -18,14 +18,14 @@ yarn add saga-fetch
 
 #### required:
 - `action:` Action from dispatched type that specified in yours watcher.
-- `method:` Yours API fetch method, there will be passed an action from watched action type. It's a window.fetch() or axios function.
-- `start:` Action to be dispatched just before fetching. Will be dispated with `action` you passed before.
-- `success:` If request was successful dispatch this action with responsed data.
+- `method:` Yours API fetch method, has an `action` you specified before. It must return a promise. For example `window.fetch()` or `axios.get()` function.
+- `start:` Action to be dispatched just before fetching. Will be dispated with payload same with `action`.
+- `success:` If request was successful dispatch this action with responsed data. 
 - `error:` Dispatch an error with an actual error.
 
 #### optional:
-- `fulfill:` If you pass an action it will ne anyway dispatched at the end of worker after `success` or `error`. Useful to change `loading` state to `false`. When it's despatched it has the same payload as an `action` option.
-- `cancel:` This action will be dispatched if worker is cancelled. By default it has type `${action.type}/CANCELED` and payload same with `action` option. Note: It's not an ajax cancellation. To cancel yours ajax within saga's cancellation you can use axios and implement yours method [like that](https://gist.github.com/shapkarin/5dfb7dd134fca1e51fdcef1fd24a8adf).
+- `fulfill:` If you pass an action it will be dispatched  anyway at the end of worker, just after `success` or `error`. Useful to change `loading` state to `false`. When it's despatched it has the same payload as an `action` option.
+- `cancel:` This action will be dispatched if worker is cancelled. By default it has type `${action.type}/CANCELLED` and payload same with `action` option. Note: It's not an ajax cancellation. To cancel yours ajax within saga's cancellation you can use axios and implement yours method [like that](https://gist.github.com/shapkarin/5dfb7dd134fca1e51fdcef1fd24a8adf).
 
 ### Example:
 ```js
@@ -61,7 +61,7 @@ function* searchPagesWatcher () {
 }
 ```
 
-### Example with axios [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines) and [redux-actions](http://npmjs.com/package/redux-actions) and `takeLatest`:
+### Example with axios [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines) and [redux-actions](http://npmjs.com/package/redux-actions):
 
 ```js
 // routines.js
@@ -73,7 +73,6 @@ export default createRoutine('search/pages');
 ```js
 // api.js
 import axios, { CancelToken } from 'axios';
-import { CANCEL } from 'redux-saga';
 
 export const searchPages = ({ payload: { title } }) => axios.get(`/search/pages?title=${title}`);
 ```

@@ -38,7 +38,7 @@ function* fetch({
     }
     if (yield cancelled()){
       const _cancel = cancel || function(payload){
-        return { type: `${type}/CANCELED`, payload };
+        return { type: `${type}/CANCELLED`, payload };
       };
       yield put(_cancel(payload));
     }

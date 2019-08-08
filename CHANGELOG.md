@@ -1,6 +1,8 @@
 ### Version 1.3.7
-- Dispatch `fulfill` even if worker was cancelled.
-- Update docs
+Change defafult `cancel` type to posfix from `CANCELED` to `CANCELLED`
+
+### Version 1.3.7
+Dispatch `fulfill` even if worker was cancelled.
 
 ### Version 1.3.6
 Update dependencies
