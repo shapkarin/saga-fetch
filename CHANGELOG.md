@@ -1,4 +1,4 @@
-### Version 1.3.7
+### Version 1.3.8
 Change defafult `cancel` type to posfix from `CANCELED` to `CANCELLED`
 
 ### Version 1.3.7

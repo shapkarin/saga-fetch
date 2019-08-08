@@ -72,7 +72,7 @@ export default createRoutine('search/pages');
 
 ```js
 // api.js
-import axios, { CancelToken } from 'axios';
+import axios from 'axios';
 
 export const searchPages = ({ payload: { title } }) => axios.get(`/search/pages?title=${title}`);
 ```
@@ -141,3 +141,6 @@ export default handleActions({
 },
 initialState);
 ```
+
+#### Note to the last example:
+if want need to create a routine with `CANCELLED` state you may use [extend-saga-routines](https://www.npmjs.com/package/extend-saga-routines)
