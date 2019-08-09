@@ -18,7 +18,7 @@ yarn add saga-fetch
 
 #### required:
 - `action:` Action from dispatched type that specified in yours watcher.
-- `method:` Yours API fetch method, has an `action` you specified before. It must return a promise. For example `window.fetch()` or `axios.get()` function.
+- `method:` Yours API fetch method, has an `action` you specified before. It must return a `window.fetch()` or `axios.get()` promise.
 - `start:` Action to be dispatched just before fetching. Will be dispated with payload same with `action`.
 - `success:` If request was successful dispatch this action with responsed data. 
 - `error:` Dispatch an error with an actual error.
@@ -45,10 +45,10 @@ const searchPages = ({ payload: { title } }) => fetch(`/search/pages?title=${tit
    const searchPages = ({ payload: { title } }) => axios.get(`/search/pages?title=${title}`)
 */
 
-function* searchPagesWorker(action){
+function* searchPagesWorker(action) {
   yield fork(fetchWorker, {
       action,
-      method: searchPages
+      method: searchPages,
       start: searchPagesStart,
       success: searchPagesSuccess,
       error: searchPagesError,
@@ -56,7 +56,7 @@ function* searchPagesWorker(action){
   });
 }
 
-function* searchPagesWatcher () {
+function* searchPagesWatcher() {
     yield takeEvery('SEARCH_PAGE', searchPagesWorker);
 }
 ```
@@ -85,7 +85,7 @@ import fetch from 'saga-fetch';
 import { searchPages } from './api';
 import search from './routines';
 
-function* searchPagesWorker(action){
+function* searchPagesWorker(action) {
   yield delay(142);
   yield fork(fetch, {
       action,
