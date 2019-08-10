@@ -1,3 +1,6 @@
+### Version 1.3.9
+Fix errors messages.
+
 ### Version 1.3.8
 Change default cancel type postfix from `CANCELED` to `CANCELLED`
 

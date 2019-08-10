@@ -10,19 +10,19 @@ function* fetch({
   cancel
 }) {
   if(action === undefined){
-    throw new Error('`action` is reqired');
+    throw new Error('`action` is required');
   }
   if(method === undefined){
-    throw new Error('`method` is reqired');
+    throw new Error('`method` is required');
   }
   if(start === undefined){
-    throw new Error('`start` is reqired');
+    throw new Error('`start` is required');
   }
   if(success === undefined){
-    throw new Error('`success` is reqired');
+    throw new Error('`success` is required');
   }
   if(error === undefined){
-    throw new Error('`error` is reqired');
+    throw new Error('`error` is required');
   }
   const { type, payload } = action;
   try {
