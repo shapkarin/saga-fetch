@@ -1,5 +1,5 @@
 ### Version 1.3.8
-Change defafult `cancel` type to posfix from `CANCELED` to `CANCELLED`
+Change default cancel type postfix from `CANCELED` to `CANCELLED`
 
 ### Version 1.3.7
 Dispatch `fulfill` even if worker was cancelled.
