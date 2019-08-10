@@ -1,5 +1,5 @@
 ### Version 1.3.9
-Fix errors messages.
+Fix errors message and docs.
 
 ### Version 1.3.8
 Change default cancel type postfix from `CANCELED` to `CANCELLED`
@@ -11,10 +11,10 @@ Dispatch `fulfill` even if worker was cancelled.
 Update dependencies
 
 ### Version 1.3.5
-Dispatch `start` with passed action. So now you can use yours `action` in the starts reducer.
-For example to change the `loading` state.
+Dispatch `start` with passed action.
+For example to change the `loading` state, even for secific nested object.
 
-[Example](https://github.com/shapkarin/shapkarin.me/blob/59fffc2ded9bd5d3f0b4242fa03e00c8ff2ecc84/src/Pages/Projects/reducers.js#L55)
+[Example](https://github.com/shapkarin/shapkarin.me/blob/exmaple/src/Pages/Projects/reducers.js#L63)
 
 ### Version 1.3.4
 remove default action for the `fulfill`

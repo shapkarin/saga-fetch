@@ -1,2 +1,0 @@
-- Improve errors
-- Add some way to add buil-in ajax cancelation when worker was calelled

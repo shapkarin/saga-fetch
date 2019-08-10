@@ -19,12 +19,12 @@ yarn add saga-fetch
 #### required:
 - `action:` Action from dispatched type that specified in yours watcher.
 - `method:` Yours API fetch method, has an `action` you specified before. It must return a `window.fetch()` or `axios.get()` promise.
-- `start:` Action to be dispatched just before fetching. Will be dispated with payload same with `action`.
-- `success:` If request was successful dispatch this action with responsed data. 
+- `start:` Ajax was started. Also will be dispatched with the `payload` from the `action`.
+- `success:` If request was successful `saga-fetch` will dispatch this action with responsed data as an argument.
 - `error:` Dispatch an error with an actual error.
 
 #### optional:
-- `fulfill:` If you pass an action it will be dispatched  anyway at the end of worker, just after `success` or `error`. Useful to change `loading` state to `false`. When it's despatched it has the same payload as an `action` option.
+- `fulfill:` If you pass an action it will be dispatched  anyway at the end of ajax process. Useful to change `loading` state to `false`. When it's despatched it has the same payload as an `action` option.
 - `cancel:` This action will be dispatched if worker is cancelled. By default it has type `${action.type}/CANCELLED` and payload same with `action` option. Note: It's not an ajax cancellation. To cancel yours ajax within saga's cancellation you can use axios and implement yours method [like that](https://gist.github.com/shapkarin/5dfb7dd134fca1e51fdcef1fd24a8adf).
 
 ### Example:
@@ -61,7 +61,7 @@ function* searchPagesWatcher() {
 }
 ```
 
-### Example with axios [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines) and [redux-actions](http://npmjs.com/package/redux-actions):
+### Example with axios `takeLatest`, [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines) and [redux-actions](http://npmjs.com/package/redux-actions):
 
 ```js
 // routines.js
@@ -72,9 +72,16 @@ export default createRoutine('search/pages');
 
 ```js
 // api.js
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
+import { CANCEL } from 'redux-saga';
 
-export const searchPages = ({ payload: { title } }) => axios.get(`/search/pages?title=${title}`);
+export const searchPages = ({ payload: { title } }) => {
+  const url = `/search/pages?title=${title}`;
+  const source = CancelToken.source();
+  const request = axios.get(url, { cancelToken: source.token });
+  request[CANCEL] = () => source.cancel();
+  return request;
+};
 ```
 
 ```js
@@ -89,7 +96,7 @@ function* searchPagesWorker(action) {
   yield delay(142);
   yield fork(fetch, {
       action,
-      method: fetchUser,
+      method: searchPages,
       start: search.request,
       success: search.success,
       error: search.failure,
