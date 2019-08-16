@@ -1,6 +1,6 @@
 ## Redux-saga fetch worker.
 ![npm](https://img.shields.io/npm/v/saga-fetch.svg)
-![npm](https://img.shields.io/npm/dt/saga-fetch.svg)
+![npm](https://img.shields.io/npm/dm/saga-fetch.svg)
 ![NPM](https://img.shields.io/npm/l/saga-fetch.svg)
 
 ### Install with `npm`:
@@ -61,7 +61,7 @@ function* searchPagesWatcher() {
 }
 ```
 
-### Example with axios `takeLatest`, [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines) and [redux-actions](http://npmjs.com/package/redux-actions):
+### Example with axios, takeLatest, [redux-saga-routines](https://www.npmjs.com/package/redux-saga-routines) and [redux-actions](http://npmjs.com/package/redux-actions):
 
 ```js
 // routines.js
