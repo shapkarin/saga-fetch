@@ -1,4 +1,4 @@
-import { put, call, cancelled } from 'redux-saga/effects';
+import { put, call, retry as retryCall, cancelled } from 'redux-saga/effects';
 
 function* fetch({
   action,
@@ -7,7 +7,8 @@ function* fetch({
   success,
   error,
   fulfill,
-  cancel
+  cancel,
+  retry
 }) {
   if(action === undefined){
     throw new Error('`action` is required');
@@ -27,7 +28,13 @@ function* fetch({
   const { type, payload } = action;
   try {
     yield put(start(payload));
-    const response = yield call(method, action);
+    let response;
+    if(yield retry === undefined){
+      response = yield call(method, action);
+    } else {
+      const { times, delay } = retry;
+      response = yield retryCall(times, delay, method, action);
+    }
     const data = yield response.data || response.json();
     yield put(success(data));
   } catch (err) {
