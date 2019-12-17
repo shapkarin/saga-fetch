@@ -1,3 +1,6 @@
+### Version 1.3.10
+Update dev dependencies
+
 ### Version 1.3.9
 Fix errors message and docs.
 
