@@ -3,6 +3,9 @@
 ![npm](https://img.shields.io/npm/dm/saga-fetch.svg)
 ![NPM](https://img.shields.io/npm/l/saga-fetch.svg)
 
+### If you want to [say thank you](https://github.com/shapkarin/extend-saga-routines/blob/master/thanks.md).
+
+
 ### Install with `npm`:
 
 ```
